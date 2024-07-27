@@ -1,16 +1,7 @@
+//src/controllers/userController.js
 import mongoose from 'mongoose';
-import User from './userSchema.js';
+import User from '../models/user.model.js';
 
-const dbName = 'your-database-name'; // Replace with your actual database name
-
-export const initializeDbConnection = async () => {
-    await mongoose.connect(`mongodb://localhost:27017/${dbName}`, {
-        // useNewUrlParser: true,
-        // useUnifiedTopology: true,
-    })
-        .then(() => console.log(`Connected to MongoDB database: ${dbName}`))
-        .catch((error) => console.error(`Error connecting to MongoDB database: ${error.message}`));
-};
 export const findIdByUser = async (userName) => {
     const user = await User.findOne({ name: userName });
     if (user) {
@@ -25,14 +16,10 @@ export const getUser = async (userName) => {
     console.log(`GET: ${userName}`);
     const userId = await findIdByUser(userName);
     try {
-
         const user = await User.findById(userId);
-
-        if (user) {
-
+        if (user !== 0) {
             return user;
         } else {
-            console.log('User not found');
             throw new Error('User not found');
         }
     } catch (error) {
@@ -41,9 +28,7 @@ export const getUser = async (userName) => {
     }
 };
 export const addUser = async (name, password) => {
-    console.log('POST:NEW');
     const existingUser = await findIdByUser(name);
-    console.log(`Checking if user already exists with the name: ${existingUser}`);
     if(!existingUser){
         try {
             const newUser = new User({ name, password });
@@ -53,7 +38,6 @@ export const addUser = async (name, password) => {
             throw error;
         }
     } else{
-        console.log(`User already exists with the name: ${name}`);
         throw new Error('User already exists');
     }
 };
@@ -64,7 +48,6 @@ export const updateUser = async (userName, updatedFields) => {
         if (updatedUser) {
             console.log(`User updated: ${updatedUser.name}`);
         } else {
-            console.log('User not found');
             throw new Error('User not found');
         }
     } catch (error) {
@@ -75,7 +58,6 @@ export const updateUser = async (userName, updatedFields) => {
 export const deleteUser = async (userName) => {
     try {
         const userId = await findIdByUser(userName);
-        console.log(`Deleting user with id: ${userId} from the database`);
         if (!mongoose.Types.ObjectId.isValid(userId)) {
             throw new Error('Invalid user ID');
         }
@@ -89,3 +71,7 @@ export const deleteUser = async (userName) => {
         throw error;
     }
 };
+
+export const Test = async () => {
+    console.log('Testing UserController');
+}
