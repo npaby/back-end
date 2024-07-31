@@ -11,7 +11,12 @@ export const findIdByUser = async (userName) => {
         return 0;
     }
 };
-
+export const listAllUsers = async () => {
+    console.log('GET: All users');
+    const allUsers = await User.find({});
+    console.log(`Total users: ${allUsers.length}`);
+    return allUsers;
+};
 export const getUser = async (userName) => {
     console.log(`GET: ${userName}`);
     const userId = await findIdByUser(userName);
@@ -71,7 +76,10 @@ export const deleteUser = async (userName) => {
         throw error;
     }
 };
-
-export const Test = async () => {
-    console.log('Testing UserController');
+const user = () => {
+    return "Neil";
 }
+export const hello = async (req, res) => {
+    res.send(`Hello user ${user}`);
+}
+

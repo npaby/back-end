@@ -1,5 +1,5 @@
 //src/routes/userRoutes.js
-import {getUser,addUser,updateUser,deleteUser} from '../controllers/userController.js';
+import {getUser, addUser,updateUser,deleteUser, hello} from '../controllers/userController.js';
 import express from 'express';
 const router = express.Router();
 
@@ -12,6 +12,7 @@ router.post('/', async (req, res) => {
         res.status(409).send(`POST: Error adding user. ${error.message}`);
     }
 });
+
 router.get('/:userName', async (req, res) => {
     const { userName } = req.params;
     try {
@@ -25,6 +26,7 @@ router.get('/:userName', async (req, res) => {
         res.status(500).send(`GET: Error retrieving user. ${error.message}`);
     }
 });
+
 router.put('/:userName', async (req, res) => {
     const { userName } = req.params;
     const { name, password } = req.body;
@@ -40,6 +42,7 @@ router.put('/:userName', async (req, res) => {
         res.status(500).send(`PUT: Error updating user: ${error.message}`);
     }
 });
+
 router.delete('/:userName', async (req, res) => {
     const { userName } = req.params;
     try {
@@ -49,6 +52,5 @@ router.delete('/:userName', async (req, res) => {
         res.status(500).send(`DELETE: Error deleting user: ${error.message}`);
     }
 });
-
-
+router.get('/hello/hello', hello  );
 export default router;
