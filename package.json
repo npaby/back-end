@@ -1,8 +1,16 @@
 {
+  "name": "test-ce-back-end",
+  "version": "1.0.0",
+  "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon --exec babel-node src/server.js"
+    "test": "mocha --timeout 10000",
+    "start": "nodemon --exec babel-node app.js"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
   "devDependencies": {
     "@babel/core": "^7.24.9",
     "@babel/node": "^7.25.0",
@@ -10,8 +18,11 @@
     "nodemon": "^3.1.4"
   },
   "dependencies": {
+    "chai": "^5.1.1",
     "express": "^4.19.2",
+    "mocha": "^10.7.0",
     "mongoose": "^8.5.1",
-    "uuid": "^10.0.0"
+    "sinon": "^18.0.0",
+    "supertest": "^7.0.0"
   }
 }
